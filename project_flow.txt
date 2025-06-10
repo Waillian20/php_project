@@ -1,0 +1,71 @@
+Blog
+====
+
+Features
+--------
+- User (reader, writer, admin)
+- Posts 
+
+
+Posts
+-----
+- View Posts  -> reader [no auth]
+- Create Posts -> writer [auth]
+- Public Posts -> admin [auth] (public, reject)
+
+
+User Journey
+------------
+Reader  -> Can view all posts 
+        -> detail view
+
+Juu     -> Register 
+        -> Login
+        -> Profile *
+        -> my own posts (public, reject)
+        -> crete, edit, delete
+
+Mg MG   -> Login
+        -> all posts <- writers' created posts
+        -> detail view 
+        -> Public 
+        -> Reject (reason)
+
+Category [hardcode]
+
+
+1. DB create
+  - categories
+    - id [PK, AI]
+    - name [varchar]
+
+  - users 
+    - id [PK, AI]
+    - name [varchar]
+    - email [varchar, UNIQUE]
+    - password [varchar] <- hash
+    - role (writer, admin) [varchar]
+
+  - posts 
+    - id [PK, AI]
+    - title [varchar]
+    - content [text]
+    - author_id [FK]
+    - category_id [FK]
+    - status [created, published, rejected] -> [varchar]
+    - published_at [timestamp, NULL]
+    - created_at [timestamp]
+
+2. Design (Front Side)
+  - Reader 
+    - All blogs posts (Home)
+    - Deatil Post 
+  - Writer
+    - Register / Login 
+    - CRUD (Create, Retrieve, Update, Delete) - Blog Posts
+
+3. Design (Back Side)
+  - Admin 
+    - CRUD (Categories)
+    - Post list 
+    - Post detail 
