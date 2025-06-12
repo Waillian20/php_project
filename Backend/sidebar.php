@@ -60,10 +60,10 @@
         <div id="collapseStudents" class="collapse" aria-labelledby="headingStudents"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Students:</h6>
-                <a class="collapse-item" href="#">Students Register</a>               
-                <a class="collapse-item" href="#">Students Lists</a>
-                <a class="collapse-item" href="#">Students Edit</a>
+                <h6 class="collapse-header">Students:</h6>
+                <a class="collapse-item" href="<?= route('students/dashboard.php')?>">Dashboard</a>
+                <a class="collapse-item" href="<?= route('students/register.php')?>">Register</a>               
+                <a class="collapse-item" href="<?= route('students/lists.php')?>">Lists</a>
             </div>
         </div>
     </li>

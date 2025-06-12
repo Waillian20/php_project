@@ -1,6 +1,21 @@
 <?php 
-    include '../config.php'; 
-    include '../../dbconnect.php';
+include '../config.php'; 
+include '../../dbconnect.php';
+?>
+
+<?php 
+if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = htmlspecialchars($_POST['name']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $address = htmlspecialchars($_POST['address']);
+    $stmt = $pdo->prepare("INSERT INTO students (name, gender, address) VALUES (:name, :gender, :address)");
+    $stmt->execute([
+        'name' => $name,
+        'gender' => $gender,
+        'address' => $address
+    ]);
+    header('Location: lists.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,47 +65,45 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Lists</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h4>Categories Table</h4>
-                                <a href="<?= route('categories/create.php')?>" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add</a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Category Name</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                            $dsn = $pdo->query("SELECT * FROM categories ORDER BY id DESC");
-                                            $categories = $dsn->fetchAll(PDO::FETCH_ASSOC);
-                                            // print_r($categories);
-                                            $i=1;
-                                            foreach ($categories as $category):
-                                        ?>
-                                        <tr>
-                                            <td><?= $i++; ?></td>  
-                                            <td><?= htmlspecialchars($category['name']) ?></td>
-                                            <td>
-                                                <a href="edit.php?id=<?= $category['id'] ?>" class="btn btn-sm btn-warning me-1" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
-                                                <a href="delete.php?id=<?= $category['id'] ?>" onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>                                       
-                                    </tbody>
-                                </table>
+                    <div class="container mt-5">
+                        <!-- <h2 class="h3 mb-4 text-gray-800">Students Register</h2> -->
+
+                        <div class="container mt-5">
+                            <div class="card shadow">
+                                <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0">Register</h4>
+                                </div>
+                                <div class="card-body">
+                                <form action="#" method="POST">
+                                    <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                    <label class="form-label">Gender</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="gender" id="male" value="Male" class="form-check-input" required>
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="gender" id="female" value="Female" class="form-check-input">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <textarea name="address" id="address" rows="3" class="form-control" required></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
