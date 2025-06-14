@@ -1,26 +1,26 @@
 <?php 
-include '../config.php'; 
-include '../../dbconnect.php';
+    include '../config.php'; 
+    include '../../dbconnect.php';
 
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $stmt = $pdo->prepare("SELECT * FROM categories WHERE id = :id");
-    $stmt->execute([
-        'id' => $id
-    ]);
-    $category = $stmt->fetch(PDO::FETCH_ASSOC);
-    // print_r($category);
-
-    if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-        $name = htmlspecialchars($_POST['categoryName']);
-        $stmt = $pdo->prepare("UPDATE categories SET name = :name WHERE id = :id");
+    if(isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $stmt = $pdo->prepare("SELECT * FROM categories WHERE id = :id");
         $stmt->execute([
-            'name' => $name,
-            'id' => $_GET['id']
+            'id' => $id
         ]);
-        header('Location: lists.php');
+        $category = $stmt->fetch(PDO::FETCH_ASSOC);
+        // print_r($category);
+
+        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+            $name = htmlspecialchars($_POST['categoryName']);
+            $stmt = $pdo->prepare("UPDATE categories SET name = :name WHERE id = :id");
+            $stmt->execute([
+                'name' => $name,
+                'id' => $_GET['id']
+            ]);
+            header('Location: lists.php');
+        }
     }
-}
 ?>
 
 <!DOCTYPE html>

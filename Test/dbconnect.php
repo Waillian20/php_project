@@ -1,6 +1,6 @@
 <?php
 $host = '127.0.0.1';      // or 'localhost'
-$db   = 'itblog_db';  // database name
+$db   = 'test';  // database name
 $user = 'root';  // database username
 $pass = '';  // database password
 // $charset = 'utf8mb4';     // character set

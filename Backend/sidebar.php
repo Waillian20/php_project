@@ -37,9 +37,20 @@
 
     <!-- Nav Item - Posts -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-solid fa-newspaper"></i>
-            <span>Posts</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePosts"
+            aria-expanded="true" aria-controls="collapseStudents">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Posts</span>
+        </a>
+        <div id="collapsePosts" class="collapse" aria-labelledby="headingStudents"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Students:</h6>
+                <a class="collapse-item" href="<?= route('posts/lists.php')?>">Lists</a>
+                <a class="collapse-item" href="<?= route('#')?>">Register</a>               
+                <a class="collapse-item" href="<?= route('#')?>">Lists</a>
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->

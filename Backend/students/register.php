@@ -76,20 +76,20 @@ if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="card-body">
                                 <form action="#" method="POST">
                                     <div class="mb-3">
-                                    <label for="name" class="form-label">Full Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" required>
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" name="name" id="name" class="form-control" required>
                                     </div>
 
                                     <div class="mb-3">
-                                    <label class="form-label">Gender</label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" name="gender" id="male" value="Male" class="form-check-input" required>
-                                        <label class="form-check-label" for="male">Male</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" name="gender" id="female" value="Female" class="form-check-input">
-                                        <label class="form-check-label" for="female">Female</label>
-                                    </div>
+                                        <label class="form-label">Gender</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" name="gender" id="male" value="Male" class="form-check-input" required>
+                                            <label class="form-check-label" for="male">Male</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" name="gender" id="female" value="Female" class="form-check-input">
+                                            <label class="form-check-label" for="female">Female</label>
+                                        </div>
                                     </div>
 
                                     <div class="mb-3">

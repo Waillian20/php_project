@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard Map - Myanmar States</title>
+  <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+    }
+    #container {
+      margin: 2rem auto;
+      width: 90%;
+      max-width: 1200px;
+      height: 600px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Myanmar Regional Statistics</h2>
+<div id="container"></div>
+
+<script>
+fetch('state-regions.geojson') // replace path if needed
+  .then(res => res.json())
+  .then(geojson => {
+    const dashboardData = [
+      { key: "Kachin", value: 200 },
+      { key: "Kayah", value: 120 },
+      { key: "Kayin", value: 300 },
+      { key: "Chin", value: 80 },
+      { key: "Sagaing", value: 450 },
+      { key: "Tanintharyi", value: 170 },
+      { key: "Bago", value: 320 },
+      { key: "Magway", value: 210 },
+      { key: "Mandalay", value: 500 },
+      { key: "Mon", value: 150 },
+      { key: "Rakhine", value: 230 },
+      { key: "Yangon", value: 900 },
+      { key: "Shan", value: 380 },
+      { key: "Ayeyarwady", value: 340 }
+    ];
+
+    // Match features by name (adjust if your GeoJSON uses "ST", "state", etc.)
+    const mappedData = geojson.features.map(f => {
+      const name = f.properties.ST || f.properties.NAME_1 || 'Unknown';
+      const match = dashboardData.find(item => item.key === name);
+      return {
+        'hc-key': name,
+        'value': match ? match.value : 0
+      };
+    });
+
+    Highcharts.mapChart('container', {
+      chart: {
+        map: geojson
+      },
+
+      title: {
+        text: ''
+      },
+
+      legend: {
+        title: {
+          text: 'User Count',
+          style: {
+            color: 'gray'
+          }
+        },
+        align: 'left',
+        verticalAlign: 'bottom',
+        floating: true,
+        layout: 'vertical',
+        valueDecimals: 0,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        symbolRadius: 0
+      },
+
+      mapNavigation: {
+        enabled: true,
+        enableDoubleClickZoomTo: true
+      },
+
+      colorAxis: {
+        min: 0,
+        max: 1000,
+        stops: [
+          [0, '#E0F3DB'],
+          [0.5, '#A8DDB5'],
+          [1, '#43A2CA']
+        ]
+      },
+
+      tooltip: {
+        pointFormat: '{point["hc-key"]}: <b>{point.value}</b> users'
+      },
+
+      series: [{
+        data: mappedData,
+        joinBy: ['ST', 'hc-key'],
+        name: 'User Count',
+        states: {
+          hover: {
+            color: '#F59E0B'
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          format: '{point["hc-key"]}'
+        }
+      }]
+    });
+  });
+</script>
+
+</body>
+</html>
